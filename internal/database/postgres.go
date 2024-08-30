@@ -25,12 +25,6 @@ func (p Postgres) GetConnection() *sqlx.DB {
 	p.host = os.Getenv("HOST")
 	p.port = os.Getenv("PORT")
 
-	/*intPort, err := strconv.Atoi(p.port)
-
-	if err != nil {
-		log.Fatal("ERROR CONVERTING: ", err)
-	}*/
-
 	db, err := sqlx.Connect("postgres", fmt.Sprintf("user=%s dbname=%s password=%s host=%s port=%s sslmode=disable", p.user, p.db, p.password, p.host, p.port))
 
 	if err != nil {
