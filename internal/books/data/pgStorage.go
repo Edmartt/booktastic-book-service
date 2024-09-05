@@ -38,19 +38,33 @@ func (b BookDataAccess) Create(book models.Books) (string, error) {
 	return bookData, nil
 }
 
-func (b BookDataAccess) Read(id string) (models.Books, error) {
+func (b BookDataAccess) Read(id string) (*models.Books, error) {
 	conn := dbConnectionObject.GetConnection()
 
 	err := conn.Get(&b.book, "SELECT isbn, title, pages, current_page, author, year, status FROM books WHERE id = ?", id)
 
 	if err != nil {
-		return models.Books{}, err
+		return nil, err
 	}
-	return b.book, nil
+	return &b.book, nil
 }
 
-func (b BookDataAccess) Update(id string) (models.Books, error) {
+func (b BookDataAccess) Update(id string, book models.Books) (string, error) {
 	conn := dbConnectionObject.GetConnection()
 
-	result := conn.NamedExec("UPDATE books SET isbn = :isbn, title = :title, pages = :pages, current_page = :curren_page, author = :author, year = :year, status = :status ")
+	result, err := conn.NamedExec("UPDATE books SET isbn = :isbn, title = :title, pages = :pages, current_page = :current_page, author = :author, year = :year, status = :status WHERE id=?", book)
+
+	if err != nil {
+		return "", err
+	}
+
+	lastID, err := result.LastInsertId()
+
+	if err != nil {
+		return "", err
+	}
+
+	bookData := fmt.Sprintf("%d %s %s", lastID, book.ISBN, book.Title)
+
+	return bookData, nil
 }
