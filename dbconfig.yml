@@ -1,0 +1,9 @@
+development:
+  dialect: sqlite3
+  datasource: test.db
+  dir: migrations/sqlite3
+
+postgres:
+  dialect: postgres
+  datasource: host=${PG_HOST} dbname=${PG_DB} user=${PG_USER} password=${PG_PASSWORD} port=${PORT}sslmode=disable
+  dir: migrations
