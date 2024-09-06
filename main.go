@@ -7,8 +7,8 @@ import (
 
 func main() {
 	godotenv.Load()
-	dbConnectObject := database.Postgres{}
+	dbConnectObject := database.SQLite{}
 	getConn := dbConnectObject.GetConnection()
 
-	dbConnectObject.PingDB(getConn)
+	database.PingDB(getConn)
 }
