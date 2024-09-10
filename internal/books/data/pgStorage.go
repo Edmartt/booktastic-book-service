@@ -21,7 +21,7 @@ func init() {
 func (b BookDataAccess) Create(book models.Books) (string, error) {
 	conn := dbConnectionObject.GetConnection()
 
-	dbResponse, err := conn.NamedExec("INSERT INTO books (id, isbn, title, pages, curren_page, author, year, status) VALUES(:id, :isbn, :title, :pages, :curren_page, :author, :year, :status)", &book)
+	dbResponse, err := conn.NamedExec("INSERT INTO books (id, isbn, title, pages, current_page, author, year, status) VALUES(:id, :isbn, :title, :pages, :current_page, :author, :year, :status)", &book)
 
 	if err != nil {
 		return "", err
