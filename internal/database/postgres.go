@@ -33,12 +33,3 @@ func (p Postgres) GetConnection() *sqlx.DB {
 
 	return db
 }
-
-// PingDB test database connection
-func (p Postgres) PingDB(db *sqlx.DB) {
-
-	if err := db.Ping(); err != nil {
-		log.Fatal(err)
-	}
-	log.Println("Connected to PG")
-}
