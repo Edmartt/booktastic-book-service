@@ -15,7 +15,7 @@ type BookDataAccess struct {
 }
 
 func init() {
-	dbConnectionObject = database.Postgres{}
+	dbConnectionObject = database.SQLite{}
 }
 
 func (b BookDataAccess) Create(book models.Books) (string, error) {
