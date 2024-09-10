@@ -14,7 +14,7 @@ type Books struct {
 	ISBN        string `json:"isbn" db:"isbn"`
 	Title       string `json:"title" db:"title"`
 	Pages       string `json:"pages" db:"pages"`
-	CurrentPage string `json:"curren_page" db:"curren_page"`
+	CurrentPage string `json:"current_page" db:"current_page"`
 	Author      string `json:"author" db:"author"`
 	Year        string `json:"year" db:"year"`
 	Status      string `json:"status" db:"status"`
