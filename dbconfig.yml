@@ -6,4 +6,4 @@ development:
 postgres:
   dialect: postgres
   datasource: host=${PG_HOST} dbname=${PG_DB} user=${PG_USER} password=${PG_PASSWORD} port=${PORT}sslmode=disable
-  dir: migrations
+  dir: migrations/postgres
