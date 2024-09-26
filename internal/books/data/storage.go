@@ -12,7 +12,7 @@ type BookDataAccess struct {
 	book models.Books
 }
 
-func newRepository(db database.IDBConnection) *BookDataAccess {
+func NewRepository(db database.IDBConnection) *BookDataAccess {
 	return &BookDataAccess{
 		db: db,
 	}
@@ -49,8 +49,13 @@ func (b BookDataAccess) Read(id string) (*models.Books, error) {
 	return &b.book, nil
 }
 
-func (b BookDataAccess) Update(id string, book models.Books) (string, error) {
+func (b BookDataAccess) Update(id string) (string, error) {
 	conn := b.db.GetConnection()
+	book, err := b.Read(id)
+
+	if err != nil {
+		return "", err
+	}
 
 	result, err := conn.NamedExec("UPDATE books SET isbn = :isbn, title = :title, pages = :pages, current_page = :current_page, author = :author, year = :year, status = :status WHERE id=?", book)
 
