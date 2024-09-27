@@ -1,7 +1,6 @@
-
 -- +migrate Up
 
-CREATE TABLE books(
+CREATE TABLE IF NOT EXISTS books(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	uuid TEXT,
 	isbn TEXT,
