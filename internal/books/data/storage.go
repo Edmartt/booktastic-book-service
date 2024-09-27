@@ -35,7 +35,7 @@ func (b BookDataAccess) Create(book models.Books) (string, error) {
 func (b BookDataAccess) Read(id string) (*models.Books, error) {
 	conn := b.db.GetConnection()
 
-	err := conn.Get(&b.book, "SELECT isbn, title, pages, current_page, author, year, status FROM books WHERE id = ?", id)
+	err := conn.Get(&b.book, "SELECT uuid, isbn, title, pages, current_page, author, year, status FROM books WHERE uuid = ?", id)
 
 	if err != nil {
 		return nil, err
