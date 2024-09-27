@@ -21,7 +21,7 @@ func NewRepository(db database.IDBConnection) *BookDataAccess {
 func (b BookDataAccess) Create(book models.Books) (string, error) {
 	conn := b.db.GetConnection()
 
-	dbResponse, err := conn.NamedExec("INSERT INTO books (id, isbn, title, pages, current_page, author, year, status) VALUES(:id, :isbn, :title, :pages, :current_page, :author, :year, :status)", &book)
+	_, err := conn.NamedExec("INSERT INTO books (uuid, isbn, title, pages, current_page, author, year, status) VALUES(:uuid, :isbn, :title, :pages, :current_page, :author, :year, :status)", &book)
 
 	if err != nil {
 		return "", err
