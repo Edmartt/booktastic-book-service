@@ -21,19 +21,13 @@ func NewRepository(db database.IDBConnection) *BookDataAccess {
 func (b BookDataAccess) Create(book models.Books) (string, error) {
 	conn := b.db.GetConnection()
 
-	dbResponse, err := conn.NamedExec("INSERT INTO books (id, isbn, title, pages, current_page, author, year, status) VALUES(:id, :isbn, :title, :pages, :current_page, :author, :year, :status)", &book)
+	_, err := conn.NamedExec("INSERT INTO books (uuid, isbn, title, pages, current_page, author, year, status) VALUES(:uuid, :isbn, :title, :pages, :current_page, :author, :year, :status)", &book)
 
 	if err != nil {
 		return "", err
 	}
 
-	lastID, err := dbResponse.LastInsertId()
-
-	if err != nil {
-		return "", err
-	}
-
-	bookData := fmt.Sprintf("%d %s %s", lastID, book.ISBN, book.Title)
+	bookData := fmt.Sprintf("%s %s %s", book.UUID, book.ISBN, book.Title)
 
 	return bookData, nil
 }
@@ -41,7 +35,7 @@ func (b BookDataAccess) Create(book models.Books) (string, error) {
 func (b BookDataAccess) Read(id string) (*models.Books, error) {
 	conn := b.db.GetConnection()
 
-	err := conn.Get(&b.book, "SELECT isbn, title, pages, current_page, author, year, status FROM books WHERE id = ?", id)
+	err := conn.Get(&b.book, "SELECT uuid, isbn, title, pages, current_page, author, year, status FROM books WHERE uuid = ?", id)
 
 	if err != nil {
 		return nil, err
