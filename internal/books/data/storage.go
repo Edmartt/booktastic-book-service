@@ -27,13 +27,7 @@ func (b BookDataAccess) Create(book models.Books) (string, error) {
 		return "", err
 	}
 
-	lastID, err := dbResponse.LastInsertId()
-
-	if err != nil {
-		return "", err
-	}
-
-	bookData := fmt.Sprintf("%d %s %s", lastID, book.ISBN, book.Title)
+	bookData := fmt.Sprintf("%s %s %s", book.UUID, book.ISBN, book.Title)
 
 	return bookData, nil
 }
