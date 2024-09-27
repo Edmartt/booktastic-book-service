@@ -10,7 +10,7 @@ const (
 
 // Books model
 type Books struct {
-	ID          string `json:"id" db:"id"`
+	UUID        string `db:"uuid"`
 	ISBN        string `json:"isbn" db:"isbn"`
 	Title       string `json:"title" db:"title"`
 	Pages       string `json:"pages" db:"pages"`
