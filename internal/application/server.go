@@ -11,7 +11,8 @@ type HTTPServer struct {
 }
 
 func (h HTTPServer) setBookRoutes(router *gin.RouterGroup) {
-	router.GET("/book/:id", h.Handler.ReadBook)
+	router.GET("/books/:id", h.Handler.ReadBook)
+	router.POST("/books", h.Handler.CreateBook)
 }
 
 func (h HTTPServer) setRouter() *gin.Engine {
